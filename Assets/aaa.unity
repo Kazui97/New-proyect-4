@@ -193,9 +193,6 @@ GameObject:
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
   - component: {fileID: 534669906}
-  - component: {fileID: 534669909}
-  - component: {fileID: 534669908}
-  - component: {fileID: 534669907}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -284,44 +281,6 @@ MonoBehaviour:
   Hero: {fileID: 0}
   enemy: {fileID: 646391806}
   ally: {fileID: 1473885013}
---- !u!114 &534669907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534669902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c3142259b8b2024dbc968498a6061ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCGENTE: {fileID: 0}
---- !u!114 &534669908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534669902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcec2fedd80d60f4dbd28cbb9110c5e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  JugadorObjeto: {fileID: 0}
---- !u!114 &534669909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534669902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa6c73c0af2b3748b6f72cffeb3c692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &646391804
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,8 +446,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694222479}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.62, z: 0}
-  m_LocalScale: {x: 1330.2634, y: 1, z: 1278.0936}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2217.919, y: 1, z: 1993.1892}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
