@@ -5,6 +5,7 @@ using UnityEngine;
         public class CiudadanoOp : MonoBehaviour
         {
             public CosasCiudadanos datoCiudadanos;
+            public GameObject ZombieMesh;
 
             void Awake()
             {
@@ -31,8 +32,21 @@ using UnityEngine;
             {
                 Gizmos.DrawLine(transform.position, transform.position - direc);
             }
-            
-            void Update()
+
+
+            public void OnCollisionEnter(Collision collision)
+            {
+                if (collision.transform.name == "Zombi")
+                {
+                    // ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                     NPCGENTE.AddComponent<ZombieOP>();
+                     NPCGENTE.AddComponent<Renderer>();
+                }
+
+            }
+
+
+    void Update()
             {
                 Vector3 mivector = NPCGENTE.transform.position - transform.position;
                 float distjugador = mivector.magnitude;
