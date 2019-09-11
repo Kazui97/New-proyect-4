@@ -6,7 +6,6 @@ public class ZombieOP : MonoBehaviour
 {
     public CosasZombie datosZombi;
     int cambimov;
-    List<GameObject> numzombi;
     void Awake()
     {
         datosZombi.colorEs = (CosasZombie.ColorZombie)Random.Range(0, 3);
