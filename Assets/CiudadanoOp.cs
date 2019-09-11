@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ using UnityEngine;
             Vector3 direc;
             void OnDrawGizmos()
             {
-                Gizmos.DrawLine(transform.position, transform.position + direc);
+                Gizmos.DrawLine(transform.position, transform.position - direc);
             }
             
             void Update()
@@ -37,7 +37,7 @@ using UnityEngine;
                 Vector3 mivector = NPCGENTE.transform.position - transform.position;
                 float distjugador = mivector.magnitude;
 
-                if (distjugador >= 3.0f)
+                if (distjugador <= 3.0f)
                 {
                     direc = Vector3.Normalize(NPCGENTE.transform.position + transform.position);
                     transform.position += direc * 0.1f;
