@@ -38,9 +38,9 @@ using UnityEngine;
             {
                 if (collision.transform.name == "Zombi")
                 {
-                    // ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                     NPCGENTE.AddComponent<ZombieOP>();
-                     NPCGENTE.AddComponent<Renderer>();
+                     ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                     ZombieMesh.AddComponent<ZombieOP>();
+                     ZombieMesh.AddComponent<Rigidbody>();
                 }
 
             }
@@ -51,7 +51,7 @@ using UnityEngine;
                 Vector3 mivector = NPCGENTE.transform.position - transform.position;
                 float distjugador = mivector.magnitude;
 
-                if (distjugador <= 3.0f)
+                if (distjugador <= 5.0f)
                 {
                     direc = Vector3.Normalize(NPCGENTE.transform.position + transform.position);
                     transform.position += direc * 0.1f;
