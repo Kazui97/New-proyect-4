@@ -21,6 +21,7 @@ public class ZombieOP : MonoBehaviour
 
 
     public GameObject JugadorObjeto;
+    public GameObject NpcGente;
     void Start()
     {
         datosZombi.condicion = (CosasZombie.Estados)0;
@@ -35,7 +36,15 @@ public class ZombieOP : MonoBehaviour
                 JugadorObjeto = aGameObject;
             }
         }
-
+        GameObject[] Npcgameobjects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+        foreach (GameObject aagameobjects in Npcgameobjects)
+        {
+            Component Gcomponet = aagameobjects.GetComponent(typeof(CiudadanoOp));
+            if(Gcomponet != null)
+            {
+                NpcGente = aagameobjects;
+            }
+        }
     }
 
 
@@ -80,6 +89,13 @@ public class ZombieOP : MonoBehaviour
         if (distanciajugador <= 3.0f)
         {
             direction = Vector3.Normalize(JugadorObjeto.transform.position - transform.position);
+            transform.position += direction * 0.1f;
+        }
+        Vector3 Gmivector = NpcGente.transform.position - transform.position;
+        float distGente = Gmivector.magnitude;
+        if(distGente <= 3.0f)
+        {
+            direction = Vector3.Normalize(NpcGente.transform.position - transform.position);
             transform.position += direction * 0.1f;
         }
     }

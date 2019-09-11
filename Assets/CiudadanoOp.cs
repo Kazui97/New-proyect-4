@@ -15,17 +15,17 @@ using UnityEngine;
             }
            public GameObject NPCGENTE;
              void Start()
-            {
+             {
                 GameObject[] allgameobtects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
                 foreach (GameObject aGameObject in allgameobtects)
                 {
-                    Component aComponent = aGameObject.GetComponent(typeof(Hero));
+                    Component aComponent = aGameObject.GetComponent(typeof(ZombieOP));
                     if (aComponent != null)
                     {
                         NPCGENTE = aGameObject;
                     }
                 }
-            }
+             }
             Vector3 direc;
             void OnDrawGizmos()
             {
@@ -39,7 +39,7 @@ using UnityEngine;
 
                 if (distjugador >= 3.0f)
                 {
-                    direc = Vector3.Normalize(NPCGENTE.transform.position - transform.position);
+                    direc = Vector3.Normalize(NPCGENTE.transform.position + transform.position);
                     transform.position += direc * 0.1f;
                 }
             }
