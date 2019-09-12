@@ -61,7 +61,7 @@ public class Generador : MonoBehaviour
                 ZombieMesh.AddComponent<Rigidbody>();
                 ZombieMesh.name = "Zombi";
             }
-            else // generador de ciudadanos
+            else // generador de ciudadanos \\
             {
                 Gente = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 Gente.AddComponent<CiudadanoOp>();
@@ -72,11 +72,11 @@ public class Generador : MonoBehaviour
             }
         }
        
-        // generador hero 
+        // generador hero \\
         Hero = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Hero.AddComponent<MovimientoTeclado>();
         Hero.AddComponent<Hero>();
-        Hero.AddComponent<Camera>(); 
+        Hero.AddComponent<Camera>();
         Hero.AddComponent<Rigidbody>();
         Hero.name = "Hero";
 

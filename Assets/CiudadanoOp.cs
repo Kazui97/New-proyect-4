@@ -6,6 +6,7 @@ using UnityEngine;
     {
         public CosasCiudadanos datoCiudadanos;
         public GameObject ZombieMesh;
+        CosasZombie zombicosas;
 
         void Awake()
         {
@@ -38,9 +39,11 @@ using UnityEngine;
         {
             if (collision.transform.name == "Zombi")
             {
-                //ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 ZombieMesh.AddComponent<ZombieOP>();
                 ZombieMesh.AddComponent<Rigidbody>();
+                zombicosas = ZombieMesh.GetComponent<ZombieOP>().datosZombi;
+                
             }
 
         }
@@ -54,7 +57,7 @@ using UnityEngine;
             foreach (var item in FindObjectsOfType<ZombieOP>()) 
             {
                 float tempdist = Vector3.Distance(this.transform.position, item.transform.position);
-                if (tempdist < distmin)
+                if (tempdist <= distmin)
                 {
                     distmin = tempdist;
                     zombimascerca = item.gameObject;
