@@ -2,104 +2,115 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-        public class CiudadanoOp : MonoBehaviour
+    public class CiudadanoOp : MonoBehaviour
+    {
+        public CosasCiudadanos datoCiudadanos;
+        public GameObject ZombieMesh;
+
+        void Awake()
         {
-            public CosasCiudadanos datoCiudadanos;
-            public GameObject ZombieMesh;
-
-            void Awake()
+            int darnombre = Random.Range(0, 20);
+            datoCiudadanos.genteNombres = (CosasCiudadanos.Nombres)darnombre;
+            int daredad = Random.Range(15, 100);
+            datoCiudadanos.edadgente = (CosasCiudadanos.Edad)daredad;
+        }
+           
+            void Start()
             {
-                int darnombre = Random.Range(0, 20);
-                datoCiudadanos.genteNombres = (CosasCiudadanos.Nombres)darnombre;
-                int daredad = Random.Range(15, 100);
-                datoCiudadanos.edadgente = (CosasCiudadanos.Edad)daredad;
+                //GameObject[] allgameobtects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+                //foreach (GameObject aGameObject in allgameobtects)
+                //{
+                //    Component aComponent = aGameObject.GetComponent(typeof(ZombieOP));
+                //    if (aComponent != null)
+                //    {
+                //        NPCGENTE = aGameObject;
+                //    }
+                //}
             }
-           public GameObject NPCGENTE;
-             void Start()
-             {
-                GameObject[] allgameobtects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
-                foreach (GameObject aGameObject in allgameobtects)
-                {
-                    Component aComponent = aGameObject.GetComponent(typeof(ZombieOP));
-                    if (aComponent != null)
-                    {
-                        NPCGENTE = aGameObject;
-                    }
-                }
-             }
-            Vector3 direc;
-            void OnDrawGizmos()
+        Vector3 direc;
+        void OnDrawGizmos()
+        {
+            Gizmos.DrawLine(transform.position, transform.position - direc);
+        }
+
+
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision.transform.name == "Zombi")
             {
-                Gizmos.DrawLine(transform.position, transform.position - direc);
+                //ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                ZombieMesh.AddComponent<ZombieOP>();
+                ZombieMesh.AddComponent<Rigidbody>();
             }
 
-
-            public void OnCollisionEnter(Collision collision)
-            {
-                if (collision.transform.name == "Zombi")
-                {
-                     ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                     ZombieMesh.AddComponent<ZombieOP>();
-                     ZombieMesh.AddComponent<Rigidbody>();
-                }
-
-            }
+        }
 
 
     void Update()
-            {
-                Vector3 mivector = NPCGENTE.transform.position - transform.position;
-                float distjugador = mivector.magnitude;
+        {
+            float distmin = 5;                          ///-------------corre de los zombie------------\\\
+            GameObject zombimascerca = null;
 
-                if (distjugador <= 5.0f)
+            foreach (var item in FindObjectsOfType<ZombieOP>()) 
+            {
+                float tempdist = Vector3.Distance(this.transform.position, item.transform.position);
+                if (tempdist < distmin)
                 {
-                    direc = Vector3.Normalize(NPCGENTE.transform.position + transform.position);
-                    transform.position += direc * 0.1f;
+                    distmin = tempdist;
+                    zombimascerca = item.gameObject;
                 }
             }
-        }
+       
+            if (zombimascerca != null) ///-----si hay zombie cerca----\\\
+            {
+                direc = Vector3.Normalize(zombimascerca.transform.position + transform.position);
+                transform.position += direc * 0.1f;
+            }
 
-        public struct CosasCiudadanos
+        }
+    }
+
+    public struct CosasCiudadanos
+    {
+        public enum Nombres
         {
-            public enum Nombres
-            {
-                stubbs,
-                rob,
-                toreto,
-                pequeñotim,
-                doncarlos,
-                carlosII,
-                carlosI,
-                sergio,
-                stevan,
-                tutiaentanga,
-                panzerottedelsena,
-                cj,
-                haytevoysampedro,
-                sanpeludo,
-                alexisdelpeludoII,
-                putoalexis,
-                jason,
-                andrey,
-                atreus,
-                artion,
-                kratos,
-                zeus,
-                loki,
-                sam,
-                wilson,
-                elbrayan,
-                venites,
-                sampedro,
-            }
-            public Nombres genteNombres;
-
-            public enum Edad
-            {
-                edad
-            }
-            public Edad edadgente;
+            stubbs,
+            rob,
+            toreto,
+            pequeñotim,
+            doncarlos,
+            carlosII,
+            carlosI,
+            sergio,
+            stevan,
+            tutiaentanga,
+            panzerottedelsena,
+            cj,
+            haytevoysampedro,
+            sanpeludo,
+            alexisdelpeludoII,
+            putoalexis,
+            jason,
+            andrey,
+            atreus,
+            artion,
+            kratos,
+            zeus,
+            loki,
+            sam,
+            wilson,
+            elbrayan,
+            venites,
+            sampedro,
         }
+        public Nombres genteNombres;
+
+        public enum Edad
+        {
+            edad
+        }
+        public Edad edadgente;
+    }
 
     
 

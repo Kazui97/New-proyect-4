@@ -27,32 +27,9 @@ public class ZombieOP : MonoBehaviour
         datosZombi.condicion = (CosasZombie.Estados)0;
         StartCoroutine("Cambioestado");
 
-        //GameObject[] allgameobtects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
-        //foreach (GameObject aGameObject in allgameobtects)
-        //{
-        //    Component aComponent = aGameObject.GetComponent(typeof(Hero));
-        //    if (aComponent != null)
-        //    {
-        //        JugadorObjeto = aGameObject;
-        //    }
-        //}
-
         JugadorObjeto = FindObjectOfType<Hero>().gameObject;
 
-        //GameObject[] Npcgameobjects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
-        //foreach (GameObject aagameobjects in Npcgameobjects)
-        //{
-        //    Component Gcomponet = aagameobjects.GetComponent(typeof(CiudadanoOp));
-        //    if(Gcomponet != null)
-        //    {
-        //        NpcGente = aagameobjects;
-        //        numzombi.Add(aagameobjects);
-        //        for (int i = 0; i = ; i++)
-        //        {
-
-        //        }
-        //    }
-        //}
+        
     }
 
 
@@ -76,7 +53,7 @@ public class ZombieOP : MonoBehaviour
         Vector3 mivector = JugadorObjeto.transform.position - transform.position;
         float distanciajugador = mivector.magnitude;
 
-        if (ciudadanoMasCercano != null)//sigbnifica que hay un ciudadano cerca 
+        if (ciudadanoMasCercano != null) //sigbnifica que hay un ciudadano cerca 
         {
             direction = Vector3.Normalize(ciudadanoMasCercano.transform.position - transform.position);
             transform.position += direction * 0.1f;
