@@ -39,10 +39,12 @@ using UnityEngine;
         {
             if (collision.transform.name == "Zombi")
             {
+                Destroy(FindObjectOfType<CiudadanoOp>().gameObject);
                 ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 ZombieMesh.AddComponent<ZombieOP>();
                 ZombieMesh.AddComponent<Rigidbody>();
                 zombicosas = ZombieMesh.GetComponent<ZombieOP>().datosZombi;
+                zombicosas = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
                 
             }
 

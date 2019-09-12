@@ -98,9 +98,6 @@ public class Generador : MonoBehaviour
         ally.text="aldeanos: "+numaldeanos;
         enemy.text="zombies: "+numzombie;
       
-    }   
-      
-    
-
+    }
 
 }
