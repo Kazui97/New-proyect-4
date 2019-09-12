@@ -52,7 +52,7 @@ using UnityEngine;
         }
 
 
-    void Update()
+        void Update()
         {
             float distmin = 5;                          ///-------------corre de los zombie------------\\\
             GameObject zombimascerca = null;

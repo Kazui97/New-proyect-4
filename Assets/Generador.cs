@@ -84,7 +84,7 @@ public class Generador : MonoBehaviour
        int numzombie = 0;
        int numaldeanos = 0;
 
-       
+       // texto canvas \\
         foreach (ZombieOP enemy in Transform.FindObjectsOfType<ZombieOP>())
         {
            numzombie++;
