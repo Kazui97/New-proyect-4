@@ -43,9 +43,10 @@ using UnityEngine;
                 ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 ZombieMesh.AddComponent<ZombieOP>();
                 ZombieMesh.AddComponent<Rigidbody>();
-                zombicosas = ZombieMesh.GetComponent<ZombieOP>().datosZombi;
-                zombicosas = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
-                
+                zombicosas = ZombieMesh.GetComponent<ZombieOP>().datosZombi;     ///----------- falta color y todos lo de mas :,v -------------\\\
+                //zombicosas = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
+                //Debug.Log("  waaarrr " + " quiero comer " + zombicosas.sabroso);
+
             }
 
         }
