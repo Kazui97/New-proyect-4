@@ -41,6 +41,7 @@ using UnityEngine;
             {
                 Destroy(FindObjectOfType<CiudadanoOp>().gameObject);
                 ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                ZombieMesh.name = "Nuevo zombi";
                 ZombieMesh.AddComponent<ZombieOP>();
                 ZombieMesh.AddComponent<Rigidbody>();
                 zombicosas = ZombieMesh.GetComponent<ZombieOP>().datosZombi;     ///----------- falta color y todos lo de mas :,v -------------\\\
