@@ -1,158 +1,213 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Npc.ally;
 
-public class ZombieOP : MonoBehaviour
+
+
+namespace Npc
 {
-    public CosasZombie datosZombi;
-    int cambimov;
-    void Awake()
+    namespace enemy
     {
-        datosZombi.colorEs = (CosasZombie.ColorZombie)Random.Range(0, 3);
-        int dargusto = Random.Range(0, 5);
-        datosZombi.sabroso = (CosasZombie.Gustos)dargusto;
-    }
-
-    Vector3 direction;
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, transform.position + direction);
-    }
-
-
-    public GameObject JugadorObjeto;
-    public GameObject NpcGente;
-    void Start()
-    {
-        datosZombi.condicion = (CosasZombie.Estados)0;
-        StartCoroutine("Cambioestado");
-
-        JugadorObjeto = FindObjectOfType<Hero>().gameObject;
-
-        
-    }
-
-
-    void Update()
-    {
-
-        float distanciaMin = 5;
-        GameObject ciudadanoMasCercano = null;
-
-        foreach (var ciudadano in FindObjectsOfType<CiudadanoOp>())
+        public class ZombieOP : Npcstate.NpcEstado
         {
-            float tempDist = Vector3.Distance(this.transform.position, ciudadano.transform.position);
-
-            if (tempDist < distanciaMin)
+            public CosasZombie szombie = new CosasZombie();
+            public Dzombi dzombi = new Dzombi();                                // ----------- enum de gustos y color ------------- \\
+            public Snpc datosZombi;
+            int cambimov;
+            public int dargusto;
+            void Awake()
             {
-                distanciaMin = tempDist;
-                ciudadanoMasCercano = ciudadano.gameObject;
+                dzombi.colorEs = (Dzombi.ColorZombie)Random.Range(0, 3);                
+                dargusto = Random.Range(0, 5);
+                dzombi.sabroso = (Dzombi.Gustos)dargusto;
             }
-        }
-
-        Vector3 mivector = JugadorObjeto.transform.position - transform.position;
-        float distanciajugador = mivector.magnitude;
-
-        if (ciudadanoMasCercano != null) //sigbnifica que hay un ciudadano cerca 
-        {
-            direction = Vector3.Normalize(ciudadanoMasCercano.transform.position - transform.position);
-            transform.position += direction * 0.1f;
-        }
-        else if (distanciajugador <= 3.0f)
-        {
-            direction = Vector3.Normalize(JugadorObjeto.transform.position - transform.position);
-            transform.position += direction * 0.1f;
-
-        }
-        else // no hay un ciudadano cerca
-        {
-            switch (datosZombi.condicion)
+            public void cam ()
             {
-                case CosasZombie.Estados.Idle:
-                    transform.position += new Vector3(0, 0f, 0);
-                    break;
-                case CosasZombie.Estados.Moving:
-                    if (cambimov == 0)
-                    {
-                        transform.position += new Vector3(0, 0, 0.03f);
-                    }
-                    else if (cambimov == 1)
-                    {
-                        transform.position -= new Vector3(0, 0, 0.03f);
-                    }
-                    else if (cambimov == 2)
-                    {
-                        transform.position -= new Vector3(0.03f, 0, 0);
-                    }
-                    else if (cambimov == 3)
-                    {
-                        transform.position += new Vector3(0.03f, 0, 0);
-                    }
-                    break;
+                
+            }
+            Vector3 direction;
+            void OnDrawGizmos()
+            {
+                Gizmos.DrawLine(transform.position, transform.position + direction);
+            }
 
-                case CosasZombie.Estados.Rotating:
-                    transform.eulerAngles += new Vector3(0, 0.5f, 0);
 
-                    break;
+            public GameObject JugadorObjeto;
+            public GameObject NpcGente;
+            void Start()
+            {
+                datosZombi.estado = (Snpc.NpcStatado)0;
+                StartCoroutine("Cambioestado");
 
-                default:
-                    break;
+                JugadorObjeto = FindObjectOfType<Hero>().gameObject;
+
 
             }
-        }
+            public void OnCollisionEnter(Collision collision)
+            {
+                if (collision.gameObject.GetComponent<CiudadanoOp>())
+                {
+                    collision.gameObject.AddComponent<ZombieOP>().szombie = (ZombieOP.CosasZombie)collision.gameObject.GetComponent<CiudadanoOp>().sciudadano;
+                    collision.gameObject.AddComponent<ZombieOP>().dargusto = dargusto;
+                    Destroy(collision.gameObject.GetComponent<CiudadanoOp>());
+                    collision.transform.name = "new zombi";
 
+
+                }
+            }
+
+            void Update()
+            {
+
+                float distanciaMin = 5;
+                GameObject ciudadanoMasCercano = null;
+
+                foreach (var ciudadano in FindObjectsOfType<CiudadanoOp>())
+                {
+                    float tempDist = Vector3.Distance(this.transform.position, ciudadano.transform.position);
+
+                    if (tempDist < distanciaMin)
+                    {
+                        distanciaMin = tempDist;
+                        ciudadanoMasCercano = ciudadano.gameObject;
+                    }
+                }
+
+                Vector3 mivector = JugadorObjeto.transform.position - transform.position;
+                float distanciajugador = mivector.magnitude;
+
+                if (ciudadanoMasCercano != null) //sigbnifica que hay un ciudadano cerca 
+                {
+                    direction = Vector3.Normalize(ciudadanoMasCercano.transform.position - transform.position);
+                    transform.position += direction * 0.1f;
+                }
+                else if (distanciajugador <= 3.0f)
+                {
+                    direction = Vector3.Normalize(JugadorObjeto.transform.position - transform.position);
+                    transform.position += direction * 0.1f;
+
+                }
+                else // no hay un ciudadano cerca
+                {
+                    switch (datosZombi.estado)
+                    {
+                        case Snpc.NpcStatado.idle:
+                            transform.position += new Vector3(0, 0f, 0);
+                            break;
+                        case Snpc.NpcStatado.moving:
+                            if (cambimov == 0)
+                            {
+                                transform.position += new Vector3(0, 0, 0.03f);
+                            }
+                            else if (cambimov == 1)
+                            {
+                                transform.position -= new Vector3(0, 0, 0.03f);
+                            }
+                            else if (cambimov == 2)
+                            {
+                                transform.position -= new Vector3(0.03f, 0, 0);
+                            }
+                            else if (cambimov == 3)
+                            {
+                                transform.position += new Vector3(0.03f, 0, 0);
+                            }
+                            break;
+
+                        case Snpc.NpcStatado.rotating:
+                            transform.eulerAngles += new Vector3(0, 0.5f, 0);
+
+                            break;
+
+                        default:
+                            break;
+
+                    }
+                }
+
+
+
+            }
+            IEnumerator Cambioestado()
+            {
+                while (true)
+                {
+                    datosZombi.estado = (Snpc.NpcStatado)Random.Range(0, 3);
+                    yield return new WaitForSeconds(3);
+
+                    if (datosZombi.estado == (Snpc.NpcStatado)0)
+                    {
+                        datosZombi.estado = (Snpc.NpcStatado)1;
+                        cambimov = Random.Range(0, 3);
+                    }
+                    else if (datosZombi.estado == (Snpc.NpcStatado)1)
+                    {
+                        datosZombi.estado = (Snpc.NpcStatado)2;
+                    }
+
+                }
+
+
+            }
+            public struct CosasZombie
+            {
+                public Snpc snpc;   
+            }
            
-     
-    }
-    IEnumerator Cambioestado()
-    {
-        while (true)
-        {
-            datosZombi.condicion = (CosasZombie.Estados)Random.Range(0, 3);
-            yield return new WaitForSeconds(3);
-
-            if (datosZombi.condicion == (CosasZombie.Estados)0)
-            {
-                datosZombi.condicion = (CosasZombie.Estados)1;
-                cambimov = Random.Range(0, 3);
-            }
-            else if (datosZombi.condicion == (CosasZombie.Estados)1)
-            {
-                datosZombi.condicion = (CosasZombie.Estados)2;
-            }
-
         }
-
+        public struct Dzombi
+        {
+            public enum Gustos
+            {
+                Brazos,
+                Piernas,
+                Huesitos,
+                Ojito,
+                corazoncito
+            };
+            public Gustos sabroso;
+            public enum ColorZombie
+            {
+                magenta,
+                green,
+                cyan
+            };
+            public ColorZombie colorEs;
+        }
     }
+
+
+    //    public struct CosasZombie
+    //    {
+    //        public enum Gustos
+    //        {
+    //            Brazos,
+    //            Piernas,
+    //            Huesitos,
+    //            Ojito,
+    //            corazoncito
+    //        };
+    //        public Gustos sabroso;
+
+    //        public enum Estados
+    //        {
+    //            Idle,
+    //            Moving,
+    //            Rotating
+    //        };
+    //        public Estados condicion;
+
+    //        public enum ColorZombie
+    //        {
+    //            magenta,
+    //            green,
+    //            cyan
+    //        };
+    //        public ColorZombie colorEs;
+    //    }
+    //}
 }
 
-public struct CosasZombie
-{
-    public enum Gustos
-    {
-        Brazos,
-        Piernas,
-        Huesitos,
-        Ojito,
-        corazoncito
-    };
-    public Gustos sabroso;
 
-    public enum Estados
-    {
-        Idle,
-        Moving,
-        Rotating
-    };
-    public Estados condicion;
-
-    public enum ColorZombie
-    {
-        magenta,
-        green,
-        cyan
-    };
-    public ColorZombie colorEs;
-}
 
 

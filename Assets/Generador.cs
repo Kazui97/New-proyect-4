@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Npc.ally;
+using Npc.enemy;
 
 
 
@@ -11,8 +13,8 @@ public class Generador : MonoBehaviour
     public GameObject ZombieMesh;
     public GameObject Gente;
     public GameObject Hero;
-    CosasZombie datoZombi;
-    CosasCiudadanos datoCiudadanos;
+    Dzombi datoszombi;
+   // CosasCiudadanos datoCiudadanos;
     readonly int minimo;
     const int maximo = 25;
     int cantbody;
@@ -39,18 +41,18 @@ public class Generador : MonoBehaviour
                 ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 ZombieMesh.AddComponent<ZombieOP>();
 
-                datoZombi = ZombieMesh.GetComponent<ZombieOP>().datosZombi;
-                switch (datoZombi.colorEs)
+                datoszombi = ZombieMesh.GetComponent<ZombieOP>().dzombi;
+                switch (datoszombi.colorEs)
                 {
-                    case CosasZombie.ColorZombie.magenta:
+                    case Dzombi.ColorZombie.magenta:
                         ZombieMesh.GetComponent<Renderer>().material.color = Color.magenta;
 
                         break;
-                    case CosasZombie.ColorZombie.green:
+                    case Dzombi.ColorZombie.green:
                         ZombieMesh.GetComponent<Renderer>().material.color = Color.green;
 
                         break;
-                    case CosasZombie.ColorZombie.cyan:
+                    case Dzombi.ColorZombie.cyan:
                         ZombieMesh.GetComponent<Renderer>().material.color = Color.cyan;
                         break;
                 }
