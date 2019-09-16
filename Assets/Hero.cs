@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Npc.ally;
 using Npc.enemy;
+using Npc;
 
 
 
 public class Hero : MonoBehaviour
 {
-    Dzombi datosZombi;
+    CosasZombie datosZombi;
+    CosasCiudadanos datosciudadanos;
     
     //CosasCiudadanos datoCiudadanos;
     void Start()
@@ -26,15 +28,15 @@ public class Hero : MonoBehaviour
     {
         if (collision.transform.name == "Zombi")
         {
-            datosZombi = collision.gameObject.GetComponent<ZombieOP>().dzombi;
+            datosZombi = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
             Debug.Log("  waaarrr " + " quiero comer " + datosZombi.sabroso);
         }
 
 
-        //if (collision.transform.name == "Gente")
-        //{
-        //    datoCiudadanos = collision.gameObject.GetComponent<CiudadanoOp>().datoCiudadanos;
-        //    Debug.Log("Hola soy " + datoCiudadanos.genteNombres + " y tengo " + datoCiudadanos.edadgente );
-        //}
+        if (collision.transform.name == "Gente")
+        {
+            datosciudadanos = collision.gameObject.GetComponent<CiudadanoOp>().datoCiudadanos;
+            Debug.Log("Hola soy " + datosciudadanos.genteNombres + " y tengo " + datosciudadanos.edadgente);
+        }
     }
 }

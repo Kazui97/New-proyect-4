@@ -6,144 +6,146 @@ using Npc.enemy;
 
 
 
-    namespace Npc
+namespace Npc
+{
+    namespace ally
     {
-        namespace ally
+        public class CiudadanoOp : Npcstate.NpcEstado
         {
-            public class CiudadanoOp : Npcstate.NpcEstado
+            public CosasCiudadanos datoCiudadanos;
+            public GameObject ZombieMesh;
+            CosasZombie zombicosas;
+            public int daredad;
+
+            void Awake()
             {
-                public Sciudadano sciudadano = new Sciudadano();
-                public CosasCiudadanos datoCiudadanos;
-                public GameObject ZombieMesh;
-              //  CosasZombie zombicosas;
+                int darnombre = Random.Range(0, 20);
+                datoCiudadanos.genteNombres = (CosasCiudadanos.Nombres)darnombre;
+                daredad = Random.Range(15, 100);
+                datoCiudadanos.edadgente = (CosasCiudadanos.Edad)daredad;
+            }
 
-                void Awake()
+            void Start()
+            {
+                //GameObject[] allgameobtects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+                //foreach (GameObject aGameObject in allgameobtects)
+                //{
+                //    Component aComponent = aGameObject.GetComponent(typeof(ZombieOP));
+                //    if (aComponent != null)
+                //    {
+                //        NPCGENTE = aGameObject;
+                //    }
+                //}
+            }
+            Vector3 direc;
+            void OnDrawGizmos()
+            {
+                Gizmos.DrawLine(transform.position, transform.position - direc);
+            }
+
+
+            public void OnCollisionEnter(Collision collision)
+            {
+                if (collision.transform.name == "Zombi")
                 {
-                    int darnombre = Random.Range(0, 20);
-                    datoCiudadanos.genteNombres = (CosasCiudadanos.Nombres)darnombre;
-                    int daredad = Random.Range(15, 100);
-                    datoCiudadanos.edadgente = (CosasCiudadanos.Edad)daredad;
+                    collision.gameObject.GetComponent<ZombieOP>();
+                    //Destroy(FindObjectOfType<CiudadanoOp>().gameObject);
+                    //ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    //ZombieMesh.name = "Nuevo zombi";
+                    //ZombieMesh.AddComponent<ZombieOP>();
+                    //ZombieMesh.AddComponent<Rigidbody>();
+                    //zombicosas = ZombieMesh.GetComponent<ZombieOP>().datosZombi;     ///----------- falta color y todos lo de mas :,v -------------\\\
+                    ////zombicosas = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
+                    ////Debug.Log("  waaarrr " + " quiero comer " + zombicosas.sabroso);
+
                 }
+            }
 
-                void Start()
+
+
+            void Update()
+            {
+                float distmin = 5;                          ///-------------corre de los zombie------------\\\
+                GameObject zombimascerca = null;
+
+                foreach (var item in FindObjectsOfType<ZombieOP>())
                 {
-                    //GameObject[] allgameobtects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
-                    //foreach (GameObject aGameObject in allgameobtects)
-                    //{
-                    //    Component aComponent = aGameObject.GetComponent(typeof(ZombieOP));
-                    //    if (aComponent != null)
-                    //    {
-                    //        NPCGENTE = aGameObject;
-                    //    }
-                    //}
-                }
-                Vector3 direc;
-                void OnDrawGizmos()
-                {
-                    Gizmos.DrawLine(transform.position, transform.position - direc);
-                }
-
-
-            //public void OnCollisionEnter(Collision collision)
-            //{
-            //    if (collision.transform.name == "Zombi")
-            //    {
-            //        Destroy(FindObjectOfType<CiudadanoOp>().gameObject);
-            //        ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //        ZombieMesh.name = "Nuevo zombi";
-            //        ZombieMesh.AddComponent<ZombieOP>();
-            //        ZombieMesh.AddComponent<Rigidbody>();
-            //        zombicosas = ZombieMesh.GetComponent<ZombieOP>().datosZombi;     ///----------- falta color y todos lo de mas :,v -------------\\\
-            //        //zombicosas = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
-            //        //Debug.Log("  waaarrr " + " quiero comer " + zombicosas.sabroso);
-
-            //    }
-
-
-
-                void Update()
-                {
-                    float distmin = 5;                          ///-------------corre de los zombie------------\\\
-                    GameObject zombimascerca = null;
-
-                    foreach (var item in FindObjectsOfType<ZombieOP>())
+                    float tempdist = Vector3.Distance(this.transform.position, item.transform.position);
+                    if (tempdist <= distmin)
                     {
-                        float tempdist = Vector3.Distance(this.transform.position, item.transform.position);
-                        if (tempdist <= distmin)
-                        {
-                            distmin = tempdist;
-                            zombimascerca = item.gameObject;
-                        }
+                        distmin = tempdist;
+                        zombimascerca = item.gameObject;
                     }
-
-                    if (zombimascerca != null) ///-----si hay zombie cerca----\\\
-                    {
-                        direc = Vector3.Normalize(zombimascerca.transform.position + transform.position);
-                        transform.position += direc * 0.1f;
-                    }
-
                 }
-                    public struct Sciudadano
-                    {
-                        public Snpc snpc;
 
-                        public static explicit operator ZombieOP.CosasZombie(Sciudadano sciudadano)
-                        {
-                            ZombieOP.CosasZombie Szombie = new ZombieOP.CosasZombie();
-                            Szombie.snpc = sciudadano.snpc;
-                            return Szombie;
-                        }
-                    }
+                if (zombimascerca != null) ///-----si hay zombie cerca----\\\
+                {
+                    direc = Vector3.Normalize(zombimascerca.transform.position + transform.position);
+                    transform.position += direc * 0.1f;
+                }
+                else
+                {
+                    Statemovi();
+                }
 
             }
+
+
         }
 
 
-           
 
-            public struct CosasCiudadanos
+
+        public struct CosasCiudadanos
+        {
+            public enum Nombres
             {
-                 public enum Nombres
-                 {
-                    stubbs,
-                    rob,
-                    toreto,
-                    pequeñotim,
-                    doncarlos,
-                    carlosII,
-                    carlosI,
-                    sergio,
-                    stevan,
-                    tutiaentanga,
-                    panzerottedelsena,
-                    cj,
-                    haytevoysampedro,
-                    sanpeludo,
-                    alexisdelpeludoII,
-                    putoalexis,
-                    jason,
-                    andrey,
-                    atreus,
-                    artion,
-                    kratos,
-                    zeus,
-                    loki,
-                    sam,
-                    wilson,
-                    elbrayan,
-                    venites,
-                    sampedro,
-                 }
-                public Nombres genteNombres;
-
-                public enum Edad
-                {
-                edad
-                }
-                public Edad edadgente;
+                stubbs,
+                rob,
+                toreto,
+                pequeñotim,
+                doncarlos,
+                carlosII,
+                carlosI,
+                sergio,
+                stevan,
+                tutiaentanga,
+                panzerottedelsena,
+                cj,
+                haytevoysampedro,
+                sanpeludo,
+                alexisdelpeludoII,
+                putoalexis,
+                jason,
+                andrey,
+                atreus,
+                artion,
+                kratos,
+                zeus,
+                loki,
+                sam,
+                wilson,
+                elbrayan,
+                venites,
+                sampedro,
             }
+            public Nombres genteNombres;
+
+            public enum Edad
+            {
+                edad
+            }
+            public Edad edadgente;
+
+            public static explicit operator CosasZombie(CosasCiudadanos dgente)
+            {
+                CosasZombie Szombie = new CosasZombie();
+                //Szombie.edadzombi = dgente.edadgente;
+                return Szombie;
+            }
+        }
     }
-    
+}
 
    
 
