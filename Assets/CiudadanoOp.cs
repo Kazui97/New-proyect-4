@@ -36,6 +36,7 @@ namespace Npc
                 //        NPCGENTE = aGameObject;
                 //    }
                 //}
+                StartCoroutine("Cambioestado");
             }
             Vector3 direc;
             void OnDrawGizmos()
@@ -49,6 +50,10 @@ namespace Npc
                 if (collision.transform.name == "Zombi")
                 {
                     collision.gameObject.GetComponent<ZombieOP>();
+                    Destroy(gameObject.AddComponent<CiudadanoOp>());
+                   
+                    collision.transform.name = "Zombi";    
+                    
                     //Destroy(FindObjectOfType<CiudadanoOp>().gameObject);
                     //ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     //ZombieMesh.name = "Nuevo zombi";
@@ -140,7 +145,7 @@ namespace Npc
             public static explicit operator CosasZombie(CosasCiudadanos dgente)
             {
                 CosasZombie Szombie = new CosasZombie();
-                //Szombie.edadzombi = dgente.edadgente;
+                Szombie.edadzombi = dgente.edadgente;
                 return Szombie;
             }
         }
