@@ -82,7 +82,7 @@ namespace Npc
                 }
                 else
                 {
-                    Statemovi();
+                    Statemovi();                   
                 }
 
             }
