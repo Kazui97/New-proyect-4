@@ -10,8 +10,7 @@ namespace Npc
     namespace enemy
     {
         public class ZombieOP : Npcstate.NpcEstado
-        {
-            public CosasZombie szombie = new CosasZombie();
+        {           
             public CosasZombie datosZombi ;                                // ----------- struc de gustos y color ------------- \\
             int cambimov;
             
@@ -39,7 +38,7 @@ namespace Npc
             public GameObject NpcGente;
             void Start()
             {
-                datosZombi.condicion = (CosasZombie.Estados)0;
+                
                 StartCoroutine("Cambioestado");
 
                 JugadorObjeto = FindObjectOfType<Hero>().gameObject;
@@ -152,10 +151,7 @@ namespace Npc
 
 
         }
-            //public struct CosasZombie
-            //{
-            //    public Snpc snpc;   
-            //}
+            
            
     }
    
@@ -171,13 +167,13 @@ namespace Npc
         };
         public Gustos sabroso;
 
-        public enum Estados
-        {
-            Idle,
-            Moving,
-            Rotating
-        };
-        public Estados condicion;
+        //public enum Estados
+        //{
+        //    Idle,
+        //    Moving,
+        //    Rotating
+        //};
+        //public Estados condicion;
 
         public enum ColorZombie
         {

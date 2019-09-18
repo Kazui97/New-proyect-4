@@ -8,11 +8,12 @@ using UnityEngine;
 namespace Npcstate
 {
     public class NpcEstado : MonoBehaviour
-    {
-        //public Snpc.NpcStatado states;
+    {        
         int cambimov;
-        //public float speeeed;
-        //public float rot;
+        private void Start()
+        {
+            condicion = (Estados)0;
+        }
         public void Statemovi()
         {
             switch(condicion)
@@ -76,20 +77,7 @@ namespace Npcstate
             Rotating
         };
         public Estados condicion;
-        //public struct Snpc
-        //{
-        //    public int age;
-        //    public float speed;
-
-        //    public enum NpcStatado
-        //    {
-        //        idle,
-        //        moving,
-        //        rotating
-        //    }
-        //    public NpcStatado estado;
-        //}
-
+       
     }
 }
 

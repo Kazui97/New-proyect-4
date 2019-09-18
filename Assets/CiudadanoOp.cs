@@ -15,27 +15,19 @@ namespace Npc
             public CosasCiudadanos datoCiudadanos;
             public GameObject ZombieMesh;
             CosasZombie zombicosas;
-            public int daredad;
+            
 
             void Awake()
             {
                 int darnombre = Random.Range(0, 20);
                 datoCiudadanos.genteNombres = (CosasCiudadanos.Nombres)darnombre;
-                daredad = Random.Range(15, 100);
-                datoCiudadanos.edadgente = (CosasCiudadanos.Edad)daredad;
+                datoCiudadanos.edadgente = Random.Range(15, 100);
+                
             }
 
             void Start()
             {
-                //GameObject[] allgameobtects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
-                //foreach (GameObject aGameObject in allgameobtects)
-                //{
-                //    Component aComponent = aGameObject.GetComponent(typeof(ZombieOP));
-                //    if (aComponent != null)
-                //    {
-                //        NPCGENTE = aGameObject;
-                //    }
-                //}
+               
                 StartCoroutine("Cambioestado");
             }
             Vector3 direc;
@@ -49,7 +41,7 @@ namespace Npc
             {
                 if (collision.transform.name == "Zombi")
                 {
-                    collision.gameObject.GetComponent<ZombieOP>();
+                    collision.gameObject.GetComponent<ZombieOP>();                    
                     Destroy(gameObject.AddComponent<CiudadanoOp>());
                    
                     collision.transform.name = "Zombi";    
@@ -136,11 +128,8 @@ namespace Npc
             }
             public Nombres genteNombres;
 
-            public enum Edad
-            {
-                edad
-            }
-            public Edad edadgente;
+           
+            public int edadgente;
 
             public static explicit operator CosasZombie(CosasCiudadanos dgente)
             {
