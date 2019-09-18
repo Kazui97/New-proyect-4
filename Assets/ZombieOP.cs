@@ -9,12 +9,10 @@ namespace Npc
 {
     namespace enemy
     {
-        public class ZombieOP : Npcstate.NpcEstado
+        public class ZombieOP : NpcEstado
         {           
             public CosasZombie datosZombi ;                                // ----------- struc de gustos y color ------------- \\
-            int cambimov;
             
-
             void Awake()
             {
                 datosZombi.colorEs = (CosasZombie.ColorZombie)Random.Range(0, 3);
@@ -39,24 +37,14 @@ namespace Npc
             void Start()
             {
                 
-                StartCoroutine("Cambioestado");
+               StartCoroutine("Cambioestado");
 
                 JugadorObjeto = FindObjectOfType<Hero>().gameObject;
 
 
-            }
-            //public void OnCollisionEnter(Collision collision)
-            //{
-            //    if (collision.gameObject.GetComponent<CiudadanoOp>())
-            //    {
-            //        collision.gameObject.AddComponent<ZombieOP>().szombie = (ZombieOP.CosasZombie)collision.gameObject.GetComponent<CiudadanoOp>().sciudadano;
-            //        collision.gameObject.AddComponent<ZombieOP>().cam();
-            //        Destroy(collision.gameObject.GetComponent<CiudadanoOp>());
-            //        collision.transform.name = "new zombi";
-
-
-            //    }
-            //}
+            }         
+            
+            
 
             void Update()
             {
@@ -92,62 +80,13 @@ namespace Npc
                 else // no hay un ciudadano cerca
                 {
                     Statemovi();
-                    //switch (datosZombi.condicion)
-                    //{
-                    //    case CosasZombie.Estados.Idle:
-                    //        transform.position += new Vector3(0, 0f, 0);
-                    //        break;
-                    //    case CosasZombie.Estados.Moving:
-                    //        if (cambimov == 0)
-                    //        {
-                    //            transform.position += new Vector3(0, 0, 0.03f);
-                    //        }
-                    //        else if (cambimov == 1)
-                    //        {
-                    //            transform.position -= new Vector3(0, 0, 0.03f);
-                    //        }
-                    //        else if (cambimov == 2)
-                    //        {
-                    //            transform.position -= new Vector3(0.03f, 0, 0);
-                    //        }
-                    //        else if (cambimov == 3)
-                    //        {
-                    //            transform.position += new Vector3(0.03f, 0, 0);
-                    //        }
-                    //        break;
-
-                    //    case CosasZombie.Estados.Rotating:
-                    //        transform.eulerAngles += new Vector3(0, 0.5f, 0);
-
-                    //        break;
-
-                    //    default:
-                    //        break;
-
-                    //}
+                    
                 }
 
 
 
             }
-            //IEnumerator Cambioestado()
-            //{
-            //    while (true)
-            //    {
-            //        datosZombi.condicion = (CosasZombie.Estados)Random.Range(0, 3);
-            //        yield return new WaitForSeconds(3);
-
-            //        if (datosZombi.condicion == (CosasZombie.Estados)0)
-            //        {
-            //            datosZombi.condicion = (CosasZombie.Estados)1;
-            //            cambimov = Random.Range(0, 3);
-            //        }
-            //        else if (datosZombi.condicion == (CosasZombie.Estados)1)
-            //        {
-            //            datosZombi.condicion = (CosasZombie.Estados)2;
-            //        }
-
-            //    }
+            
 
 
         }
@@ -165,15 +104,7 @@ namespace Npc
             Ojito,
             corazoncito
         };
-        public Gustos sabroso;
-
-        //public enum Estados
-        //{
-        //    Idle,
-        //    Moving,
-        //    Rotating
-        //};
-        //public Estados condicion;
+        public Gustos sabroso;       
 
         public enum ColorZombie
         {

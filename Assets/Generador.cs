@@ -35,14 +35,18 @@ public class Generador : MonoBehaviour
     void Start()
     {                                 // generador de NPC
         cantbody = rn.Next(minimo, maximo);
+        
         for (int i = 0; i < cantbody; i++)
         {
             if (rn.Next(0,2)==0)
-            {                               // generador de zombis
+            {           
+                // generador de zombis
                 ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                
                 ZombieMesh.AddComponent<ZombieOP>();
-
+                
                 datoszombi = ZombieMesh.GetComponent<ZombieOP>().datosZombi;
+                
                 switch (datoszombi.colorEs)
                 {
                     case CosasZombie.ColorZombie.magenta:
@@ -57,12 +61,16 @@ public class Generador : MonoBehaviour
                         ZombieMesh.GetComponent<Renderer>().material.color = Color.cyan;
                         break;
                 }
-
+                
 
                 Vector3 pos = new Vector3(rn.Next(-10, 10), 0, rn.Next(-10, 10));
+
+               
                 ZombieMesh.transform.position = pos;
-                ZombieMesh.AddComponent<Rigidbody>();
-                ZombieMesh.name = "Zombi";
+                
+               ZombieMesh.AddComponent<Rigidbody>();
+                
+               ZombieMesh.name = "Zombi";
             }
             else // generador de ciudadanos \\
             {

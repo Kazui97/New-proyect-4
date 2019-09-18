@@ -10,7 +10,7 @@ namespace Npc
 {
     namespace ally
     {
-        public class CiudadanoOp : Npcstate.NpcEstado
+        public class CiudadanoOp : NpcEstado
         {
             public CosasCiudadanos datoCiudadanos;
             public GameObject ZombieMesh;
@@ -41,10 +41,10 @@ namespace Npc
             {
                 if (collision.transform.name == "Zombi")
                 {
-                    collision.gameObject.GetComponent<ZombieOP>();                    
-                    Destroy(gameObject.AddComponent<CiudadanoOp>());
+                    transform.name = "Zombi";
+                    this.gameObject.AddComponent<ZombieOP>();
+                    Destroy(this.gameObject.GetComponent<CiudadanoOp>());
                    
-                    collision.transform.name = "Zombi";    
                     
                     //Destroy(FindObjectOfType<CiudadanoOp>().gameObject);
                     //ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -59,7 +59,7 @@ namespace Npc
             }
 
 
-
+            
             void Update()
             {
                 float distmin = 5;                          ///-------------corre de los zombie------------\\\
@@ -86,7 +86,7 @@ namespace Npc
                 }
 
             }
-
+            
 
         }
 

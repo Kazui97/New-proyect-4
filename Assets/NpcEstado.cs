@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-namespace Npcstate
+namespace Npc
 {
     public class NpcEstado : MonoBehaviour
     {        
@@ -14,6 +14,7 @@ namespace Npcstate
         {
             condicion = (Estados)0;
         }
+
         public void Statemovi()
         {
             switch(condicion)
