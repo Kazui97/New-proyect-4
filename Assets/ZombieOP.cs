@@ -21,9 +21,24 @@ namespace Npc
             }
             public void cam ()
             {
-                datosZombi.colorEs = (CosasZombie.ColorZombie)Random.Range(0, 3);
-                int Z_Ggusto = Random.Range(0, 5);
-                datosZombi.sabroso = (CosasZombie.Gustos)Z_Ggusto;
+                //datosZombi.colorEs = (CosasZombie.ColorZombie)Random.Range(0, 3);
+               // int Z_Ggusto = Random.Range(0, 5);
+                //datosZombi.sabroso = (CosasZombie.Gustos)Z_Ggusto;
+                int cambiocolor = Random.Range(1,3);
+                 switch (cambiocolor)
+                {
+                    case 1:
+                        gameObject.GetComponent<Renderer>().material.color = Color.magenta;
+
+                        break;
+                    case 2:
+                        gameObject.GetComponent<Renderer>().material.color = Color.green;
+
+                        break;
+                    case 3:
+                        gameObject.GetComponent<Renderer>().material.color = Color.cyan;
+                        break;
+                }
             }
             Vector3 direction;
             void OnDrawGizmos()
@@ -83,19 +98,15 @@ namespace Npc
                     
                 }
 
-
-
             }
-            
-
 
         }
-            
-           
+        
     }
    
     public struct CosasZombie
     {
+        
         public enum Gustos
         {
             Brazos,
@@ -112,6 +123,7 @@ namespace Npc
             green,
             cyan
         };
+        
         public ColorZombie colorEs;
 
         public int edadzombi;

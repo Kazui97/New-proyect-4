@@ -43,6 +43,7 @@ namespace Npc
                 {
                     transform.name = "Zombi";
                     this.gameObject.AddComponent<ZombieOP>();
+                    gameObject.AddComponent<ZombieOP>().cam();
                    
                     Destroy(this.gameObject.GetComponent<CiudadanoOp>());
                    
