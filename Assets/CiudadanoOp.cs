@@ -13,7 +13,8 @@ namespace Npc
         public class CiudadanoOp : NpcEstado
         {
             public CosasCiudadanos datoCiudadanos;
-            public GameObject ZombieMesh;
+            public GameObject JugadorObjeto;
+            public GameObject textc;
             CosasZombie zombicosas;
             
 
@@ -22,7 +23,7 @@ namespace Npc
                 int darnombre = Random.Range(0, 20);
                 datoCiudadanos.genteNombres = (CosasCiudadanos.Nombres)darnombre;
                 datoCiudadanos.edadgente = Random.Range(15, 101);
-                
+                textc = GameObject.Find("Main Camera");
             }
 
             void Start()
@@ -31,6 +32,7 @@ namespace Npc
                 int camb = (int) cual;
                
                 StartCoroutine("Cambioestado");
+                 JugadorObjeto = FindObjectOfType<Hero>().gameObject;
             }
             Vector3 direc;
             void OnDrawGizmos()
@@ -50,7 +52,7 @@ namespace Npc
                     cambioedad.datosZombi = (CosasZombie) gameObject.GetComponent<CiudadanoOp>().datoCiudadanos;
                     //gameObject.AddComponent<ZombieOP>().cam();
                     Destroy(this.gameObject.GetComponent<CiudadanoOp>());
-                    Debug.Log("edad despues" + gameObject.GetComponent<ZombieOP>().datosZombi.edadzombi);
+                    //Debug.Log("edad despues" + gameObject.GetComponent<ZombieOP>().datosZombi.edadzombi);
 
                    
                     
@@ -82,12 +84,22 @@ namespace Npc
                         zombimascerca = item.gameObject;
                     }
                 }
-
+                 Vector3 mivector = JugadorObjeto.transform.position - transform.position;
+                 float distanciajugador = mivector.magnitude;
                 if (zombimascerca != null) ///-----si hay zombie cerca----\\\
                 {
                     direc = Vector3.Normalize(zombimascerca.transform.position + transform.position);
                     transform.position += direc * 0.1f;
                 }
+                 
+                 else if(distanciajugador <= 5.0f)
+                 {
+                       textc.GetComponent<Generador>().ctext.text = "HOOOOOLA SOY  "+datoCiudadanos.genteNombres + "Y TENGO  "+ datoCiudadanos.edadgente;
+                 }
+                 else if (distanciajugador >= 3.0f)
+                    {
+                         textc.GetComponent<Generador>().Ztext.text = "";
+                    }
                 else
                 {
                     Statemovi();                   

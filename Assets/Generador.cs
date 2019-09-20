@@ -22,6 +22,7 @@ public class Generador : MonoBehaviour
     public Text enemy;
     public Text ally;
     public Text Ztext;
+    public Text ctext;
 
 
 

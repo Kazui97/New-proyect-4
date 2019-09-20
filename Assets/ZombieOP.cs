@@ -90,7 +90,7 @@ namespace Npc
                     direction = Vector3.Normalize(ciudadanoMasCercano.transform.position - transform.position);
                     transform.position += direction * 2.5f / datosZombi.edadzombi;
                 }
-                else if (distanciajugador <= 5.0f)
+                else if (distanciajugador <= 3.0f)
                 {
                     direction = Vector3.Normalize(JugadorObjeto.transform.position - transform.position);
                     transform.position += direction * 0.1f;
@@ -99,10 +99,10 @@ namespace Npc
 
 
                 }
-                 /*else if (distanciajugador >= 3.0f)
+                 else if (distanciajugador >= 3.0f)
                     {
-                         Debug.Log("");
-                    }*/
+                         textoz.GetComponent<Generador>().Ztext.text = "";
+                    }
                 else // no hay un ciudadano cerca
                 {
                     Statemovi();
