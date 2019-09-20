@@ -15,12 +15,13 @@ public class Generador : MonoBehaviour
     public GameObject Gente;
     public GameObject Hero;
     CosasZombie datoszombi;
-    CosasCiudadanos datoCiudadanos;
+    CosasCiudadanos datoCiudadanos;    
     readonly int minimo;
     const int maximo = 25;
     int cantbody;
     public Text enemy;
     public Text ally;
+    public Text Ztext;
 
 
 

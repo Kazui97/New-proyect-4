@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Npc.ally;
+
 
 
 
@@ -11,13 +13,15 @@ namespace Npc
     {
         public class ZombieOP : NpcEstado
         {           
-            public CosasZombie datosZombi ;                                // ----------- struc de gustos y color ------------- \\
-            
+            public CosasZombie datosZombi;                                // ----------- struc de gustos y color ------------- \\
+            public GameObject textoz;
             void Awake()
             {
                 datosZombi.colorEs = (CosasZombie.ColorZombie)Random.Range(0, 3);
                 int dargusto = Random.Range(0, 5);
                 datosZombi.sabroso = (CosasZombie.Gustos)dargusto;
+                datosZombi.edadzombi = Random.Range(15, 101);
+                textoz = GameObject.Find("Main Camera");
             }
             public void cam ()
             {
@@ -84,14 +88,21 @@ namespace Npc
                 if (ciudadanoMasCercano != null) //sigbnifica que hay un ciudadano cerca 
                 {
                     direction = Vector3.Normalize(ciudadanoMasCercano.transform.position - transform.position);
-                    transform.position += direction * 0.1f;
+                    transform.position += direction * 2.5f / datosZombi.edadzombi;
                 }
-                else if (distanciajugador <= 3.0f)
+                else if (distanciajugador <= 5.0f)
                 {
                     direction = Vector3.Normalize(JugadorObjeto.transform.position - transform.position);
                     transform.position += direction * 0.1f;
+                    Debug.Log("waaarrrr "+ "quiero comer "+ datosZombi.sabroso + "" + datosZombi.edadzombi);
+                    textoz.GetComponent<Generador>().Ztext.text = "waaarrrr "+ "quiero comer "+ datosZombi.sabroso;
+
 
                 }
+                 /*else if (distanciajugador >= 3.0f)
+                    {
+                         Debug.Log("");
+                    }*/
                 else // no hay un ciudadano cerca
                 {
                     Statemovi();

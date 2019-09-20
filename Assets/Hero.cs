@@ -28,8 +28,8 @@ public class Hero : MonoBehaviour
     {
         if (collision.transform.name == "Zombi")
         {
-            datosZombi = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
-            Debug.Log("  waaarrr " + " quiero comer " + datosZombi.sabroso);
+            //datosZombi = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
+            //Debug.Log("  waaarrr " + " quiero comer " + datosZombi.sabroso);
         }
 
 

@@ -21,12 +21,14 @@ namespace Npc
             {
                 int darnombre = Random.Range(0, 20);
                 datoCiudadanos.genteNombres = (CosasCiudadanos.Nombres)darnombre;
-                datoCiudadanos.edadgente = Random.Range(15, 100);
+                datoCiudadanos.edadgente = Random.Range(15, 101);
                 
             }
 
             void Start()
             {
+                float cual = 2.5f;
+                int camb = (int) cual;
                
                 StartCoroutine("Cambioestado");
             }
@@ -41,11 +43,15 @@ namespace Npc
             {
                 if (collision.transform.name == "Zombi")
                 {
+                    //Debug.Log("edad antes" + collision.gameObject.GetComponent<CiudadanoOp>().datoCiudadanos.edadgente);
                     transform.name = "Zombi";
-                    this.gameObject.AddComponent<ZombieOP>();
-                    gameObject.AddComponent<ZombieOP>().cam();
-                   
+                    //this.gameObject.AddComponent<ZombieOP>();
+                    ZombieOP cambioedad = gameObject.AddComponent<ZombieOP>();
+                    cambioedad.datosZombi = (CosasZombie) gameObject.GetComponent<CiudadanoOp>().datoCiudadanos;
+                    //gameObject.AddComponent<ZombieOP>().cam();
                     Destroy(this.gameObject.GetComponent<CiudadanoOp>());
+                    Debug.Log("edad despues" + gameObject.GetComponent<ZombieOP>().datosZombi.edadzombi);
+
                    
                     
                     //Destroy(FindObjectOfType<CiudadanoOp>().gameObject);
