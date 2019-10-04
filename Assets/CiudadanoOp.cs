@@ -12,27 +12,25 @@ namespace Npc
     {
         public class CiudadanoOp : NpcEstado
         {
-            public CosasCiudadanos datoCiudadanos;
+            public CosasCiudadanos datoCiudadanos; // variable de la estructura
             public GameObject JugadorObjeto;
-            public GameObject textc;
-            CosasZombie zombicosas;
+            public GameObject textc; //texto para la pantalla del canvas
+            CosasZombie zombicosas; // variable de la estrutura de zombi
             
 
             void Awake()
             {
-                int darnombre = Random.Range(0, 20);
+                int darnombre = Random.Range(0, 20);            //obtener ramdo de los nombres depues asignarlas 
                 datoCiudadanos.genteNombres = (CosasCiudadanos.Nombres)darnombre;
-                datoCiudadanos.edadgente = Random.Range(15, 101);
-                textc = GameObject.Find("Main Camera");
+                datoCiudadanos.edadgente = Random.Range(15, 101);   //obtener random de las edades y despues asignarls 
+                textc = GameObject.Find("Main Camera"); // busca la camara y la asigna como como la variable textc
             }
 
             void Start()
             {
-                float cual = 2.5f;
-                int camb = (int) cual;
-               
-                StartCoroutine("Cambioestado");
-                 JugadorObjeto = FindObjectOfType<Hero>().gameObject;
+                   
+                StartCoroutine("Cambioestado");     // corutina para el cambio de estado 
+                 JugadorObjeto = FindObjectOfType<Hero>().gameObject; // el ciudadano detecta al hero para asi poder pasarle el mensaje
             }
             Vector3 direc;
             void OnDrawGizmos()
@@ -41,29 +39,20 @@ namespace Npc
             }
 
 
-            public void OnCollisionEnter(Collision collision)
+            public void OnCollisionEnter(Collision collision) // al colicionar el aldeano con un zombi este se transforma de zombi
             {
                 if (collision.transform.name == "Zombi")
                 {
-                    //Debug.Log("edad antes" + collision.gameObject.GetComponent<CiudadanoOp>().datoCiudadanos.edadgente);
-                    transform.name = "Zombi";
-                    //this.gameObject.AddComponent<ZombieOP>();
-                    ZombieOP cambioedad = gameObject.AddComponent<ZombieOP>();
-                    cambioedad.datosZombi = (CosasZombie) gameObject.GetComponent<CiudadanoOp>().datoCiudadanos;
-                    //gameObject.AddComponent<ZombieOP>().cam();
-                    Destroy(this.gameObject.GetComponent<CiudadanoOp>());
-                    //Debug.Log("edad despues" + gameObject.GetComponent<ZombieOP>().datosZombi.edadzombi);
+                   
+                    transform.name = "Zombi"; // su nombre cambia
+                    
+                    ZombieOP cambioedad = gameObject.AddComponent<ZombieOP>();//se le agrega la edad
+                    cambioedad.datosZombi = (CosasZombie) gameObject.GetComponent<CiudadanoOp>().datoCiudadanos;//aqui el zombiealdeano sigue teniendo su edad
+                   
+                    Destroy(this.gameObject.GetComponent<CiudadanoOp>());//por ultimo se le elimina el scrit de cidadano
+                   
 
                    
-                    
-                    //Destroy(FindObjectOfType<CiudadanoOp>().gameObject);
-                    //ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    //ZombieMesh.name = "Nuevo zombi";
-                    //ZombieMesh.AddComponent<ZombieOP>();
-                    //ZombieMesh.AddComponent<Rigidbody>();
-                    //zombicosas = ZombieMesh.GetComponent<ZombieOP>().datosZombi;     ///----------- falta color y todos lo de mas :,v -------------\\\
-                    ////zombicosas = collision.gameObject.GetComponent<ZombieOP>().datosZombi;
-                    ////Debug.Log("  waaarrr " + " quiero comer " + zombicosas.sabroso);
 
                 }
             }
@@ -75,7 +64,7 @@ namespace Npc
                 float distmin = 5;                          ///-------------corre de los zombie------------\\\
                 GameObject zombimascerca = null;
 
-                foreach (var item in FindObjectsOfType<ZombieOP>())
+                foreach (var item in FindObjectsOfType<ZombieOP>())         //ahora todos los cidadanos van a huir de los zombies
                 {
                     float tempdist = Vector3.Distance(this.transform.position, item.transform.position);
                     if (tempdist <= distmin)
@@ -86,21 +75,21 @@ namespace Npc
                 }
                  Vector3 mivector = JugadorObjeto.transform.position - transform.position;
                  float distanciajugador = mivector.magnitude;
-                if (zombimascerca != null) ///-----si hay zombie cerca----\\\
+                if (zombimascerca != null)                                          ///-----si hay zombie cerca todos los zombies correran----\\\
                 {
                     direc = Vector3.Normalize(zombimascerca.transform.position + transform.position);
                     transform.position += direc * 0.1f;
                 }
                  
-                 else if(distanciajugador <= 5.0f)
+                 else if(distanciajugador <= 5.0f)      // si es jugador esta cerca de los ciudadanos este le aparecera un mensaje en la pantalla 
                  {
                        textc.GetComponent<Generador>().ctext.text = "HOOOOOLA SOY  "+datoCiudadanos.genteNombres + "Y TENGO  "+ datoCiudadanos.edadgente;
                  }
-                 else if (distanciajugador >= 3.0f)
+                 else if (distanciajugador >= 3.0f) // al alejar el jugador este el mensaje desaparecera de la pantalla
                     {
                          textc.GetComponent<Generador>().Ztext.text = "";
                     }
-                else
+                else                                       //cuando nadie esta cerca de los ciudadanos este entra en sus estado normales 
                 {
                     Statemovi();                   
                 }
@@ -113,7 +102,7 @@ namespace Npc
 
 
 
-        public struct CosasCiudadanos
+        public struct CosasCiudadanos       //estructura de los cuidadanos
         {
             public enum Nombres
             {
@@ -151,7 +140,7 @@ namespace Npc
            
             public int edadgente;
 
-            public static explicit operator CosasZombie(CosasCiudadanos dgente)
+            public static explicit operator CosasZombie(CosasCiudadanos dgente) //funcion para compartir una la edades del ciudadanos al zombie
             {
                 CosasZombie Szombie = new CosasZombie();
                 Szombie.edadzombi = dgente.edadgente;

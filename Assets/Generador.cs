@@ -26,11 +26,11 @@ public class Generador : MonoBehaviour
 
 
 
-    System.Random rn = new System.Random();
+    System.Random rn = new System.Random(); // random de system
 
     public Generador()
     {
-        minimo = rn.Next(5, 15);    //rango de creación
+        minimo = rn.Next(5, 15);    //rango de creación usando el random de system
         
     }
 
@@ -43,12 +43,12 @@ public class Generador : MonoBehaviour
             if (rn.Next(0,2)==0)
             {           
                 // generador de zombis
-                ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                ZombieMesh = GameObject.CreatePrimitive(PrimitiveType.Cube);  // creacion de primityve
                 
                 ZombieMesh.AddComponent<ZombieOP>();
                 
                 datoszombi = ZombieMesh.GetComponent<ZombieOP>().datosZombi;
-                
+                                                                                            //asignacion de colores de los zombies
                 switch (datoszombi.colorEs)
                 {
                     case CosasZombie.ColorZombie.magenta:
@@ -65,7 +65,7 @@ public class Generador : MonoBehaviour
                 }
                 
 
-                Vector3 pos = new Vector3(rn.Next(-10, 10), 0, rn.Next(-10, 10));
+                Vector3 pos = new Vector3(rn.Next(-10, 10), 0, rn.Next(-10, 10));           //creacion de la pocicion de los zombies
 
                
                 ZombieMesh.transform.position = pos;
@@ -76,9 +76,9 @@ public class Generador : MonoBehaviour
             }
             else // generador de ciudadanos \\
             {
-                Gente = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                Gente.AddComponent<CiudadanoOp>();
-                Vector3 po = new Vector3(rn.Next(-20, 10), 0, rn.Next(10, 10));
+                Gente = GameObject.CreatePrimitive(PrimitiveType.Cube); //creacion de primitives 
+                Gente.AddComponent<CiudadanoOp>();//añadiendo el scrit de los ciudadnos
+                Vector3 po = new Vector3(rn.Next(-20, 10), 0, rn.Next(10, 10));//creacion de la pocicion de los ciudadnos
                 Gente.transform.position = po;
                 Gente.AddComponent<Rigidbody>();
                 Gente.name = "Gente";
@@ -86,11 +86,11 @@ public class Generador : MonoBehaviour
         }
        
         // generador hero \\
-        Hero = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Hero.AddComponent<MovimientoTeclado>();
-        Hero.AddComponent<Hero>();
-        Hero.AddComponent<Camera>();
-        Hero.AddComponent<Rigidbody>();
+        Hero = GameObject.CreatePrimitive(PrimitiveType.Cube);  //crecionde un primitive de para el hero
+        Hero.AddComponent<MovimientoTeclado>();         //agregar scrit del teclado
+        Hero.AddComponent<Hero>();//agrega el scrit del hero
+        Hero.AddComponent<Camera>();    //agrega la camara
+        Hero.AddComponent<Rigidbody>(); // agrega el ridibody
         Hero.name = "Hero";
 
             
@@ -98,17 +98,17 @@ public class Generador : MonoBehaviour
        int numaldeanos = 0;
 
        // texto canvas \\
-        foreach (ZombieOP enemy in Transform.FindObjectsOfType<ZombieOP>())
+        foreach (ZombieOP enemy in Transform.FindObjectsOfType<ZombieOP>()) //busca todos los objetos que tengan el scrit de zombies y despues los agrega aun contador el cual le pasa la informacion canvas
         {
            numzombie++;
         }
 
-        foreach (CiudadanoOp ally in Transform.FindObjectsOfType<CiudadanoOp>())
+        foreach (CiudadanoOp ally in Transform.FindObjectsOfType<CiudadanoOp>())//busca todos los objetos que tengan el scrit de ciudadanos y despues los agrega aun contador el cual le pasa la informacion canvas
         {
             numaldeanos++;
         }
         Debug.Log("contador"+numzombie);
-        ally.text="aldeanos: "+numaldeanos;
+        ally.text="aldeanos: "+numaldeanos; //asignacion de el texto de canvas 
         enemy.text="zombies: "+numzombie;
       
     }

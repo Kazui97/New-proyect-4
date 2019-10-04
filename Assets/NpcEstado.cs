@@ -15,7 +15,7 @@ namespace Npc
             condicion = (Estados)0;
         }
 
-        public void Statemovi()
+        public void Statemovi() //funcion que dice que hacer em cada estado
         {
             switch(condicion)
             {
@@ -50,7 +50,7 @@ namespace Npc
                     break;
             }
         }
-        IEnumerator Cambioestado()
+        IEnumerator Cambioestado() //la corutina cambiara el estado de los Npc cada 3 sg
         {
             while (true)
             {
