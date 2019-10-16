@@ -73,8 +73,8 @@ namespace Npc
                         zombimascerca = item.gameObject;
                     }
                 }
-                 Vector3 mivector = JugadorObjeto.transform.position - transform.position;
-                 float distanciajugador = mivector.magnitude;
+                 Vector3 mvector = JugadorObjeto.transform.position - transform.position;
+                 float distanciajugador = mvector.magnitude;
                 if (zombimascerca != null)                                          ///-----si hay zombie cerca todos los zombies correran----\\\
                 {
                     direc = Vector3.Normalize(zombimascerca.transform.position + transform.position);
@@ -83,12 +83,15 @@ namespace Npc
                  
                  else if(distanciajugador <= 5.0f)      // si es jugador esta cerca de los ciudadanos este le aparecera un mensaje en la pantalla 
                  {
-                       textc.GetComponent<Generador>().ctext.text = "HOOOOOLA SOY  "+datoCiudadanos.genteNombres + "Y TENGO  "+ datoCiudadanos.edadgente;
-                 }
-                 else if (distanciajugador >= 3.0f) // al alejar el jugador este el mensaje desaparecera de la pantalla
+                     textc.GetComponent<Generador>().ctext.text = "HOOOOOLA SOY  "+datoCiudadanos.genteNombres + "Y TENGO  "+ datoCiudadanos.edadgente;
+                     
+                    if (distanciajugador >= 6.0f) // al alejar el jugador este el mensaje desaparecera de la pantalla
                     {
-                         textc.GetComponent<Generador>().Ztext.text = "";
+                        textc.GetComponent<Generador>().ctext.text = "";
                     }
+                 }
+
+                
                 else                                       //cuando nadie esta cerca de los ciudadanos este entra en sus estado normales 
                 {
                     Statemovi();                   

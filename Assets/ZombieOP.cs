@@ -88,19 +88,20 @@ namespace Npc
                     direction = Vector3.Normalize(ciudadanoMasCercano.transform.position - transform.position);
                     transform.position += direction * 2.5f / datosZombi.edadzombi;
                 }
-                else if (distanciajugador <= 3.0f) // aqui persigue alhero y genera el mensaje en la pantalla 
+                else if (distanciajugador <= 5.0f) // aqui persigue alhero y genera el mensaje en la pantalla 
                 {
+                    
                     direction = Vector3.Normalize(JugadorObjeto.transform.position - transform.position);
                     transform.position += direction * 0.1f;
-                    Debug.Log("waaarrrr "+ "quiero comer "+ datosZombi.sabroso + "" + datosZombi.edadzombi);
-                    textoz.GetComponent<Generador>().Ztext.text = "waaarrrr "+ "quiero comer "+ datosZombi.sabroso;
+                    // Debug.Log("waaarrrr "+ "quiero comer "+ datosZombi.sabroso + "" + datosZombi.edadzombi);
+                    textoz.GetComponent<Generador>().Ztext.text = "waaarrrr " + "quiero comer " + datosZombi.sabroso;
 
-
-                }
-                 else if (distanciajugador >= 3.0f) // si el hero se aleja de los zombies el mensaje desaparese
+                    if (distanciajugador >= 6.0f) // si el hero se aleja de los zombies el mensaje desaparese
                     {
-                         textoz.GetComponent<Generador>().Ztext.text = "";
+                        textoz.GetComponent<Generador>().Ztext.text = "";
                     }
+                }
+                
                 else // no hay un ciudadano cerca o el hero el zombie entra en alos estado normales
                 {
                     Statemovi();
